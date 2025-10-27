@@ -1,4 +1,5 @@
 class StringOnObj:
+    @staticmethod
     def onObj(text):
         char_count = {}
 
@@ -30,15 +31,30 @@ class onTree: #создание дерева "библиотека"
 class newTrees: #создание дерева программного
     def __init__(self, obj):
         self.tree = onTree()
-        self.obj = obj
+        self.obj = obj.copy()
+        self.codes = {}
 
     def addVertex(self):
-        small_items = sorted(self.obj.items(), key=lambda x: x[1])[:2] #находим 2 минимальных  значения
+        while len(self.obj) > 1:
+            small_items = sorted(self.obj.items(), key=lambda x: x[1])[:2] #находим 2 минимальных  значения
 
-        for key, value in small_items: #удаление их из основного словаря
-            del self.obj[key]
+            for key, _ in small_items:
+                del self.obj[key]
 
-        self.tree.add_child('vertex', small_items[0])
-        self.tree.add_child('vertex', small_items[1], position=1)
+            new_key = f'({small_items[0][0]} + {small_items[1][0]})'
+            new_value = small_items[0][1] + small_items[1][1]
 
+            self.obj[new_key] = new_value
+
+            self.tree.add_child(new_key, small_items[0][0], position=1)
+            self.tree.add_child(new_key, small_items[1][0], position=0)
+
+        return self.tree
     
+    def generate_codes(self, node, current_codes):
+        if node in self.tree.graph and self.tree.graph[node]:
+            for child in self.tree.graph[node]:
+                bit = str(self.tree.positions[child])
+                self.generate_codes(child, current_codes+bit)
+            else:
+                self.codes[node] = current_codes
