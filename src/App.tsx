@@ -1,13 +1,9 @@
-import { useState } from 'react'
 import './App.css'
+import InputWord from './component/input'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <input placeholder='Введите свою строку'/>
-    </>
+    <InputWord/>
   )
 }
 
