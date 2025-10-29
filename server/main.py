@@ -1,8 +1,17 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from app.haffman.index_haff import *
 from pydantic import BaseModel
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],  # Порт вашего клиента
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "OPTIONS"],  # Явно разрешите OPTIONS
+    allow_headers=["*"],
+)
 
 text_storage = {}
 last_text_id = None
