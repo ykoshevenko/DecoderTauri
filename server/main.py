@@ -51,11 +51,17 @@ async def getString(text_id: str = None):
     if root is None:
         return {'error': 'error building tree'}
     
-    builder.generate_codes(root)
+    builder.generate_codes(root, '')
+
+    encoded_text = ''
+
+    for char in text:
+        encoded_text += builder.codes[char]
 
     return {
         'original_text': text,
         'huffman_codes': dict(builder.codes),
-        'encoded_length': sum(len(builder.codes.get(char, "")) * count for char, count in freq.items()) 
+        'encoded_length': sum(len(builder.codes.get(char, "")) * count for char, count in freq.items()),
+        'encoded_text': encoded_text
     }
 
