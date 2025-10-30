@@ -42,13 +42,18 @@ export default function InputWord() {
             <br/>
             <button type='submit' className='resButton'>Get result</button>
 
-            {result && (
-                <div className="result">
-                    <h3>Original Text: {result.original_text}</h3>
-                    <h4>Huffman Codes:</h4>
-                    <pre>{JSON.stringify(result.huffman_codes, null, 2)}</pre>
-                </div>
-            )}
+            <table className='table'>
+                <tr>
+                    <td className='colum1'>Symbol</td>
+                    <td className='colum1'>code</td>
+                </tr>
+                {Object.entries(result.huffman_codes).map(([character, code]) => (
+                    <tr key={character}>
+                        <td className='colum1'>{character === ' ' ? 'Space': character}</td>
+                        <td className='colum1'>{code as string}</td>
+                    </tr>
+                ))}
+            </table>
         </form>
     )
 }

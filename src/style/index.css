@@ -17,12 +17,26 @@
     background-color: #242424;
     border-radius: 10px;
     border-color: white;
+    margin-bottom: 3em;
 }
 
 .resButton:hover {
     animation-name: buttonAnimated;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
+}
+
+.table {
+    border: 1px solid white;
+    width: 45em;
+    border-collapse: collapse;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.colum1 {
+    border: 1px solid white;
+    width: 3em;
 }
 
 @keyframes buttonAnimated {
